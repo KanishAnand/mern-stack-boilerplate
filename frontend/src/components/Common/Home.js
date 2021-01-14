@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+var string = "MyString"
+
 export default class Home extends Component {
     
     constructor(props) {
@@ -12,13 +14,24 @@ export default class Home extends Component {
     }
 
     componentDidMount() {
-
+        this.setState({
+            name: 'Vikrant'
+        })
     }
+
+    componentDidUpdate() {
+        if(this.state.name != 'Kanish')
+        this.setState({
+            name: 'Kanish'
+        })
+    }
+
+    // render -> constructor -> (1st called) ComponentDidMount -> ComponentDidUpdate -> ComponentWillUnmount
 
     render() {
         return (
             <div>
-                Happy Coding!
+                Happy Coding {this.state.name}!
            </div>
         )
     }

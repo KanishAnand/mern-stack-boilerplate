@@ -20,7 +20,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
-
 class UsersList extends Component {
     
     constructor(props) {
@@ -33,10 +32,12 @@ class UsersList extends Component {
     componentDidMount() {
         axios.get('http://localhost:4000/user')
              .then(response => {
-                 this.setState({users: response.data, sortedUsers:response.data});
+                //  console.log(response);
+                 this.setState({users: response.data, sortedUsers:response.data, searchText:''});
              })
              .catch(function(error) {
                  console.log(error);
+                //  console.log("errorrrr");
              })
     }
 
@@ -73,6 +74,13 @@ class UsersList extends Component {
         }
     }
 
+    customFunction(e){
+        console.log(e.target.value);
+        this.setState({
+            searchText:e.target.value
+        })
+    }
+
     render() {
         return (
             <div>
@@ -98,6 +106,7 @@ class UsersList extends Component {
                                     </IconButton>
                                 </InputAdornment>
                             )}}
+                        // onChange={customFunction}
                         />
                     </List>
                     </Grid>
@@ -130,19 +139,23 @@ class UsersList extends Component {
                             <Table size="small">
                                 <TableHead>
                                     <TableRow>
+                                            <TableCell> Sr No.</TableCell>
                                             <TableCell> <Button onClick={this.sortChange}>{this.renderIcon()}</Button>Date</TableCell>
                                             <TableCell>Name</TableCell>
                                             <TableCell>Email</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.users.map((user,ind) => (
+                                {
+                                this.state.users.map((user,ind) => (
                                         <TableRow key={ind}>
+                                            <TableCell>{ind}</TableCell>
                                             <TableCell>{user.date}</TableCell>
                                             <TableCell>{user.name}</TableCell>
                                             <TableCell>{user.email}</TableCell>
                                         </TableRow>
-                                ))}
+                                ))
+                                }
                                 </TableBody>
                             </Table>
                         </Paper>               
