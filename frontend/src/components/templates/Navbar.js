@@ -1,33 +1,39 @@
-import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"
+import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-export default class NavBar extends Component {
-    
-    constructor(props) {
-        super(props);
-    }
+const Navbar = () => {
+  const navigate = useNavigate();
 
-    render() {
-        return (
-            <div>                
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <Link to="/" className="navbar-brand">Demo</Link>
-                    <div className="collapse navbar-collapse">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="navbar-item">
-                                <Link to="/users" className="nav-link">Users</Link>
-                            </li>
-                            <li className="navbar-item">
-                                <Link to="/register" className="nav-link">Register</Link>
-                            </li>
-                            <li className="navbar-item">
-                                <Link to="/profile" className="nav-link">My Profile</Link>
-                            </li>                            
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        )
-    }
-}
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          >
+            Canteen Portal
+          </Typography>
+          <Box sx={{ flexGrow: 1 }} />
+          <Button color="inherit" onClick={() => navigate("/users")}>
+            Users
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/register")}>
+            Register
+          </Button>
+          <Button color="inherit" onClick={() => navigate("/profile")}>
+            My Profile
+          </Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+};
+
+export default Navbar;
