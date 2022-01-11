@@ -1,25 +1,35 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import "./App.css";
 
-import UsersList from './components/Users/UsersList'
-import Home from './components/Common/Home'
-import Register from './components/Common/Register'
-import Navbar from './components/templates/Navbar'
-import Profile from './components/Users/Profile'
+import UsersList from "./components/users/UsersList";
+import Home from "./components/common/Home";
+import Register from "./components/common/Register";
+import Navbar from "./components/templates/Navbar";
+import Profile from "./components/users/Profile";
+
+const Layout = () => {
+  return (
+    <div>
+      <Navbar />
+      <div className="container">
+        <Outlet />
+      </div>
+    </div>
+  );
+};
 
 function App() {
   return (
-    <Router>
-      <div className="container">
-        <Navbar/>
-        <br/>
-        <Route path="/" exact component={Home}/>
-        <Route path="/users" exact component={UsersList}/>
-        <Route path="/register" component={Register}/>
-        <Route path="/profile" component={Profile}/>
-      </div>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="users" element={<UsersList />} />
+          <Route path="register" element={<Register />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
